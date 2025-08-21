@@ -14,7 +14,7 @@ interface Repo {
 }
 
 async function UserPage({ params }: { params: { id: string } }) {
-  const user = async (id: string) => {
+  const user = async () => {
     const response = await fetch(`https://api.github.com/users/${params.id}`);
     const data = await response.json();
     return data;
@@ -28,14 +28,14 @@ async function UserPage({ params }: { params: { id: string } }) {
     return data;
   };
 
-  const userData = await user(params.id);
+  const userData = await user();
   const reposData = await repos(params.id);
   console.log(userData);
   console.log(reposData);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 p-6">
-      <div className="max-w-7xl mx-auto">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 p-4 sm:p-6">
+      <div className="max-w-7xl mx-auto w-full overflow-hidden">
         {/* Header */}
         <div className="mb-8">
           <Link
@@ -55,13 +55,15 @@ async function UserPage({ params }: { params: { id: string } }) {
             </svg>
             Back to Dashboard
           </Link>
-          <h1 className="text-4xl font-bold text-slate-900">GitHub Profile</h1>
+          <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-slate-900">
+            GitHub Profile
+          </h1>
         </div>
 
-        <div className="grid lg:grid-cols-3 gap-8">
+        <div className="grid lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8 w-full min-w-0">
           {/* Profile Card */}
-          <div className="lg:col-span-1">
-            <div className="bg-white rounded-2xl shadow-lg p-8 border border-slate-200">
+          <div className="lg:col-span-1 w-full min-w-0">
+            <div className="bg-white rounded-2xl w-full shadow-lg p-4 sm:p-6 lg:p-8 border border-slate-200 overflow-hidden">
               {/* Avatar */}
               <div className="text-center mb-6">
                 <div className="relative inline-block">
@@ -106,30 +108,36 @@ async function UserPage({ params }: { params: { id: string } }) {
               </div>
 
               {/* Stats Grid */}
-              <div className="grid grid-cols-2 gap-4">
-                <div className="text-center p-4 bg-slate-50 rounded-xl">
-                  <div className="text-2xl font-bold text-slate-900">
+              <div className="grid grid-cols-2 gap-2 sm:gap-3 lg:gap-4 w-full">
+                <div className="text-center p-2 sm:p-3 lg:p-4 bg-slate-50 rounded-xl min-w-0">
+                  <div className="text-lg sm:text-xl lg:text-2xl font-bold text-slate-900 truncate">
                     {userData.followers}
                   </div>
-                  <div className="text-sm text-slate-600">Followers</div>
+                  <div className="text-xs sm:text-sm text-slate-600">
+                    Followers
+                  </div>
                 </div>
-                <div className="text-center p-4 bg-slate-50 rounded-xl">
-                  <div className="text-2xl font-bold text-slate-900">
+                <div className="text-center p-2 sm:p-3 lg:p-4 bg-slate-50 rounded-xl min-w-0">
+                  <div className="text-lg sm:text-xl lg:text-2xl font-bold text-slate-900 truncate">
                     {userData.following}
                   </div>
-                  <div className="text-sm text-slate-600">Following</div>
+                  <div className="text-xs sm:text-sm text-slate-600">
+                    Following
+                  </div>
                 </div>
-                <div className="text-center p-4 bg-slate-50 rounded-xl">
-                  <div className="text-2xl font-bold text-slate-900">
+                <div className="text-center p-2 sm:p-3 lg:p-4 bg-slate-50 rounded-xl min-w-0">
+                  <div className="text-lg sm:text-xl lg:text-2xl font-bold text-slate-900 truncate">
                     {userData.public_repos}
                   </div>
-                  <div className="text-sm text-slate-600">Repositories</div>
+                  <div className="text-xs sm:text-sm text-slate-600">
+                    Repositories
+                  </div>
                 </div>
-                <div className="text-center p-4 bg-slate-50 rounded-xl">
-                  <div className="text-2xl font-bold text-slate-900">
+                <div className="text-center p-2 sm:p-3 lg:p-4 bg-slate-50 rounded-xl min-w-0">
+                  <div className="text-lg sm:text-xl lg:text-2xl font-bold text-slate-900 truncate">
                     {userData.public_gists}
                   </div>
-                  <div className="text-sm text-slate-600">Gists</div>
+                  <div className="text-xs sm:text-sm text-slate-600">Gists</div>
                 </div>
               </div>
 
@@ -163,8 +171,8 @@ async function UserPage({ params }: { params: { id: string } }) {
           </div>
 
           {/* Repositories Section */}
-          <div className="lg:col-span-2">
-            <div className="bg-white rounded-2xl shadow-lg p-8 border border-slate-200">
+          <div className="lg:col-span-2 w-full min-w-0">
+            <div className="bg-white w-full rounded-2xl shadow-lg p-4 sm:p-6 lg:p-8 border border-slate-200 overflow-hidden">
               <div className="flex items-center justify-between mb-6">
                 <h2 className="text-2xl font-bold text-slate-900">
                   Repositories
@@ -175,60 +183,64 @@ async function UserPage({ params }: { params: { id: string } }) {
               </div>
 
               {/* Repository Stats */}
-              <div className="grid md:grid-cols-3 gap-4 mb-8">
-                <div className="bg-gradient-to-r from-blue-50 to-blue-100 p-4 rounded-xl border border-blue-200">
-                  <div className="flex items-center gap-3">
-                    <div className="bg-blue-500 p-2 rounded-lg">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-8 w-full">
+                <div className="bg-gradient-to-r from-blue-50 to-blue-100 p-3 sm:p-4 lg:p-4 rounded-xl border border-blue-200 min-w-0">
+                  <div className="flex items-center gap-2 sm:gap-3">
+                    <div className="bg-blue-500 p-2 rounded-lg flex-shrink-0">
                       <svg
-                        className="w-5 h-5 text-white"
+                        className="w-4 h-4 sm:w-5 sm:h-5 text-white"
                         fill="currentColor"
                         viewBox="0 0 24 24">
                         <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
                       </svg>
                     </div>
-                    <div>
-                      <div className="text-2xl font-bold text-blue-900">
+                    <div className="min-w-0">
+                      <div className="text-lg sm:text-xl lg:text-2xl font-bold text-blue-900 truncate">
                         {userData.public_repos}
                       </div>
-                      <div className="text-sm text-blue-700">Public Repos</div>
+                      <div className="text-xs sm:text-sm lg:text-sm text-blue-700">
+                        Public Repos
+                      </div>
                     </div>
                   </div>
                 </div>
 
-                <div className="bg-gradient-to-r from-green-50 to-green-100 p-4 rounded-xl border border-green-200">
-                  <div className="flex items-center gap-3">
-                    <div className="bg-green-500 p-2 rounded-lg">
+                <div className="bg-gradient-to-r from-green-50 to-green-100 p-3 sm:p-4 lg:p-4 rounded-xl border border-green-200 min-w-0">
+                  <div className="flex items-center gap-2 sm:gap-3">
+                    <div className="bg-green-500 p-2 rounded-lg flex-shrink-0">
                       <svg
-                        className="w-5 h-5 text-white"
+                        className="w-4 h-4 sm:w-5 sm:h-5 text-white"
                         fill="currentColor"
                         viewBox="0 0 24 24">
                         <path d="M16 4c0-1.11.89-2 2-2s2 .89 2 2-.89 2-2 2-2-.89-2-2zm4 18v-6h2.5l-2.54-7.63A1.5 1.5 0 0 0 18.54 8H17c-.8 0-1.54.37-2.01 1l-1.7 2.26V9H12v13h8z" />
                       </svg>
                     </div>
-                    <div>
-                      <div className="text-2xl font-bold text-green-900">
+                    <div className="min-w-0">
+                      <div className="text-lg sm:text-xl lg:text-2xl font-bold text-green-900 truncate">
                         {userData.followers}
                       </div>
-                      <div className="text-sm text-green-700">Followers</div>
+                      <div className="text-xs sm:text-sm lg:text-sm text-green-700">
+                        Followers
+                      </div>
                     </div>
                   </div>
                 </div>
 
-                <div className="bg-gradient-to-r from-purple-50 to-purple-100 p-4 rounded-xl border border-purple-200">
-                  <div className="flex items-center gap-3">
-                    <div className="bg-purple-500 p-2 rounded-lg">
+                <div className="bg-gradient-to-r from-purple-50 to-purple-100 p-3 sm:p-4 lg:p-4 rounded-xl border border-purple-200 min-w-0">
+                  <div className="flex items-center gap-2 sm:gap-3">
+                    <div className="bg-purple-500 p-2 rounded-lg flex-shrink-0">
                       <svg
-                        className="w-5 h-5 text-white"
+                        className="w-4 h-4 sm:w-5 sm:h-5 text-white"
                         fill="currentColor"
                         viewBox="0 0 24 24">
                         <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" />
                       </svg>
                     </div>
-                    <div>
-                      <div className="text-2xl font-bold text-purple-900">
+                    <div className="min-w-0">
+                      <div className="text-lg sm:text-xl lg:text-2xl font-bold text-purple-900 truncate">
                         {userData.public_gists}
                       </div>
-                      <div className="text-sm text-purple-700">
+                      <div className="text-xs sm:text-sm lg:text-sm text-purple-700">
                         Public Gists
                       </div>
                     </div>
@@ -242,22 +254,22 @@ async function UserPage({ params }: { params: { id: string } }) {
                   {reposData.map((repo: Repo) => (
                     <div
                       key={repo.id}
-                      className="p-6 border border-slate-200 rounded-xl hover:border-slate-300 transition-all duration-300 hover:shadow-md">
+                      className="p-4 sm:p-5 lg:p-6 border border-slate-200 rounded-xl hover:border-slate-300 transition-all duration-300 hover:shadow-md w-full min-w-0">
                       <div className="flex items-start justify-between mb-3">
-                        <div className="flex-1">
-                          <div className="flex items-center gap-3 mb-2">
+                        <div className="flex-1 min-w-0">
+                          <div className="flex items-center gap-2 sm:gap-3 mb-2">
                             <Link
-                              className="text-lg font-semibold text-slate-900 hover:text-blue-600 transition-colors flex items-center gap-2"
+                              className="text-base sm:text-lg lg:text-lg font-semibold text-slate-900 hover:text-blue-600 transition-colors flex items-center gap-2 truncate"
                               href={repo.html_url}
                               target="_blank"
                               rel="noopener noreferrer">
                               <svg
-                                className="w-5 h-5"
+                                className="w-4 h-4 sm:w-5 sm:h-5 flex-shrink-0"
                                 fill="currentColor"
                                 viewBox="0 0 24 24">
                                 <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
                               </svg>
-                              {repo.name}
+                              <span className="truncate">{repo.name}</span>
                             </Link>
                             {repo.visibility && (
                               <span
@@ -277,7 +289,7 @@ async function UserPage({ params }: { params: { id: string } }) {
                             </p>
                           )}
 
-                          <div className="flex items-center gap-4 text-sm text-slate-500">
+                          <div className="flex flex-wrap items-center gap-2 sm:gap-3 lg:gap-4 text-xs sm:text-sm text-slate-500">
                             {repo.language && (
                               <div className="flex items-center gap-1">
                                 <div className="w-3 h-3 bg-blue-500 rounded-full"></div>
@@ -286,7 +298,7 @@ async function UserPage({ params }: { params: { id: string } }) {
                             )}
                             <div className="flex items-center gap-1">
                               <svg
-                                className="w-4 h-4"
+                                className="w-3 h-3 sm:w-4 sm:h-4 lg:w-4 lg:h-4"
                                 fill="currentColor"
                                 viewBox="0 0 24 24">
                                 <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
@@ -295,7 +307,7 @@ async function UserPage({ params }: { params: { id: string } }) {
                             </div>
                             <div className="flex items-center gap-1">
                               <svg
-                                className="w-4 h-4"
+                                className="w-3 h-3 sm:w-4 sm:h-4 lg:w-4 lg:h-4"
                                 fill="currentColor"
                                 viewBox="0 0 24 24">
                                 <path d="M9 11H7a2 2 0 00-2 2v7a2 2 0 002 2h10a2 2 0 002-2v-7a2 2 0 00-2-2h-2M9 11V9a2 2 0 012-2h2a2 2 0 012 2v2M9 11a2 2 0 002 2h2a2 2 0 002-2M9 11a2 2 0 012-2h2a2 2 0 012 2" />
@@ -304,7 +316,7 @@ async function UserPage({ params }: { params: { id: string } }) {
                             </div>
                             <div className="flex items-center gap-1">
                               <svg
-                                className="w-4 h-4"
+                                className="w-3 h-3 sm:w-4 sm:h-4 lg:w-4 lg:h-4"
                                 fill="none"
                                 stroke="currentColor"
                                 viewBox="0 0 24 24">
@@ -315,8 +327,11 @@ async function UserPage({ params }: { params: { id: string } }) {
                                   d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
                                 />
                               </svg>
-                              <span>
+                              <span className="hidden sm:inline">
                                 Updated{" "}
+                                {new Date(repo.updated_at).toLocaleDateString()}
+                              </span>
+                              <span className="sm:hidden">
                                 {new Date(repo.updated_at).toLocaleDateString()}
                               </span>
                             </div>
